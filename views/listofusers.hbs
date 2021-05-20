@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <title>User Table</title>
+<style>
+body {
+    width: 60%;
+    margin:auto;
+}
+form{
+    width: 40%;
+    }
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 60%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+    <h3>
+        <a href="/home" style="font-weight: 700;">Home Page</a>
+        <a href="/createuser" style="font-weight: 700;">Enter a user</a>
+        <h3>Click to log api to terminal</h3>
+        <button><a href="/nbadata" style="font-weight: 700;">api connection</a></button>
+    </h3>
+    <br></br>
+    
+    <h2>EDIT USER HERE</h2> 
+    
+        <form action="/edituser" method="POST">    
+            <input type="text" id="name" name="name" class="form-control" placeholder="name" size="40"><br>
+            <input type="text" id="password"  name="password" class="form-control" placeholder="password" size="40"><br>
+            <input id="indexValue" type="hidden" value="" name="selectedrow">
+            <input type="submit" class="btn btn-primary" value="Update">
+            <button><a href="/listofusers" style="font-weight: 700;">click to show users</a></button>
+        </form>
+       <h2>Select row to edit a user</h2>
+       <p>Select a user from the table below.</p>
+    <table id="aTable">
+        <tbody>
+        {{#each createduser}}
+            <tr>
+                <td>{{this.name}}</td>
+                <td>{{this.password}}</td>
+              
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+    <script>
+        onload = function() {
+            
+            var rows = document.getElementById('aTable').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+            for (i = 0; i < rows.length; i++) {
+                rows[i].onclick = function() {
+                    var selectedRow = this.rowIndex;
+                    var elementsValues = this.children;
+                    document.getElementById('name').value = elementsValues[0].innerHTML;
+                    document.getElementById('password').value = elementsValues[1].innerHTML;
+                    document.getElementById('indexValue').value = selectedRow;
+                    
+                }
+            }
+        }
+
+     
+
+        
+    </script>
+</body>
+</html>
